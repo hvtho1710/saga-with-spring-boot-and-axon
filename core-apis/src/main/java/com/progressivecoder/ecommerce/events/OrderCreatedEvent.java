@@ -21,4 +21,24 @@ public class OrderCreatedEvent {
         this.currency = currency;
         this.orderStatus = orderStatus;
     }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 }

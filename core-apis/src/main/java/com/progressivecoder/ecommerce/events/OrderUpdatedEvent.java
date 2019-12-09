@@ -10,4 +10,12 @@ public class OrderUpdatedEvent {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
     }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 }
