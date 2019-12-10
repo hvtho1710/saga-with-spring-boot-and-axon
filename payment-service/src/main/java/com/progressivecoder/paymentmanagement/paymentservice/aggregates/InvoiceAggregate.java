@@ -26,7 +26,8 @@ public class InvoiceAggregate {
 
     @CommandHandler
     public InvoiceAggregate(CreateInvoiceCommand createInvoiceCommand) throws InterruptedException  {
-        sleep(10000);
+        System.out.println("InvoiceAggregate::InvoiceAggregate()::@CommandHandler --> CreateInvoiceCommand: " + createInvoiceCommand.toString());
+        //sleep(10000);
         if (createInvoiceCommand.price.intValue() > 100000)
             AggregateLifecycle.apply(new InvoiceRejectedEvent(createInvoiceCommand.paymentId, createInvoiceCommand.orderId));
         else
@@ -35,6 +36,7 @@ public class InvoiceAggregate {
 
     @EventSourcingHandler
     protected void on(InvoiceCreatedEvent invoiceCreatedEvent){
+        System.out.println("InvoiceAggregate::InvoiceAggregate()::@EventSourcingHandler --> InvoiceCreatedEvent: " + invoiceCreatedEvent.toString());
         this.paymentId = invoiceCreatedEvent.paymentId;
         this.orderId = invoiceCreatedEvent.orderId;
         this.invoiceStatus = InvoiceStatus.PAID;
@@ -42,6 +44,7 @@ public class InvoiceAggregate {
 
     @EventSourcingHandler
     protected void on(InvoiceRejectedEvent invoiceRejectedEvent){
+        System.out.println("InvoiceAggregate::InvoiceAggregate()::@EventSourcingHandler --> InvoiceRejectedEvent: " + invoiceRejectedEvent.toString());
         this.paymentId = invoiceRejectedEvent.paymentId;
         this.orderId = invoiceRejectedEvent.orderId;
         this.invoiceStatus = InvoiceStatus.PAYMENT_REVERSED;

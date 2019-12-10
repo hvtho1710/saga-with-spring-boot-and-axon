@@ -41,4 +41,8 @@ public class OrderCreatedEvent {
     public String getOrderStatus() {
         return orderStatus;
     }
+
+    public String toString() {
+        return "orderId: " + orderId + " - itemType: " + itemType + " - price:" + price + " - currency: " + currency + " - orderStatus: " + orderStatus + "\n";
+    }
 }

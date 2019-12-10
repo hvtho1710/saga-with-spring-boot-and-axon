@@ -1,13 +1,9 @@
 package com.progressivecoder.ecommerce.events;
 
-public class InvoiceCreatedEvent  {
-
-    public final String paymentId;
-
-    public final String orderId;
+public class InvoiceCreatedEvent extends InvoiceBaseEvent {
 
     public InvoiceCreatedEvent(String paymentId, String orderId) {
-        this.paymentId = paymentId;
-        this.orderId = orderId;
+        super(paymentId, orderId);
     }
+
 }

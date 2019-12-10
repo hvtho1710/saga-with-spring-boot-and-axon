@@ -16,4 +16,8 @@ public class CreateShippingCommand {
         this.orderId = orderId;
         this.paymentId = paymentId;
     }
+
+    public String toString() {
+        return "orderId: " + orderId + " - orderId: " + orderId + " - paymentId:" + paymentId + "\n";
+    }
 }

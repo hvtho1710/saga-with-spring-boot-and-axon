@@ -1,5 +1,8 @@
 package com.progressivecoder.ordermanagement.orderservice.queries;
 
+import com.progressivecoder.ecommerce.events.InvoiceBaseEvent;
+import com.progressivecoder.ecommerce.events.InvoiceCreatedEvent;
+import com.progressivecoder.ecommerce.events.InvoiceRejectedEvent;
 import com.progressivecoder.ecommerce.events.OrderBaseEvent;
 import com.progressivecoder.ecommerce.events.OrderCreatedEvent;
 import com.progressivecoder.ecommerce.events.OrderUpdatedEvent;
@@ -24,12 +27,26 @@ public class OrderQueryEntityManager {
 
     @EventHandler
     void on(OrderCreatedEvent event){
+        System.out.println("OrderQueryEntityManager::on() --> OrderCreatedEvent");
         persistOrder(buildQueryOrder(event));
     }
 
     @EventHandler
     void on(OrderUpdatedEvent event){
+        System.out.println("OrderQueryEntityManager::on() --> OrderUpdatedEvent");
         persistOrder(buildQueryUpdateOrder(event));
+    }
+
+    @EventHandler
+    public void handle( InvoiceCreatedEvent event ) {
+        System.out.println("OrderQueryEntityManager::on() --> InvoiceCreatedEvent");
+        persistOrder(buildQueryUpdatePaymentId(event));
+    }
+
+    @EventHandler
+    public void handle( InvoiceRejectedEvent event ) {
+        System.out.println("OrderQueryEntityManager::on() --> InvoiceRejectedEvent");
+        persistOrder(buildQueryUpdatePaymentId(event));
     }
 
     private OrderEntity findExistingOrCreateQueryOrder(String id){
@@ -52,6 +69,14 @@ public class OrderQueryEntityManager {
         orderEntity.setItemType(ItemType.valueOf(orderCreatedEvent.getItemType()));
         orderEntity.setOrderStatus(OrderStatus.valueOf(orderCreatedEvent.getOrderStatus()));
         orderEntity.setPrice(orderCreatedEvent.getPrice());
+
+        return orderEntity;
+    }
+
+    private OrderEntity buildQueryUpdatePaymentId( InvoiceBaseEvent event ){
+        OrderEntity orderEntity = findExistingOrCreateQueryOrder(event.orderId);
+
+        orderEntity.setInvoiceId(event.paymentId);
 
         return orderEntity;
     }

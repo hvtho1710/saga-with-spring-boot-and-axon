@@ -13,4 +13,8 @@ public class UpdateOrderStatusCommand {
         this.orderId = orderId;
         this.orderStatus = orderStatus;
     }
+
+    public String toString() {
+        return "orderId: " + orderId + " - orderStatus: " + orderStatus + "\n";
+    }
 }

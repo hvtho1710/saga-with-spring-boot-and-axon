@@ -18,4 +18,8 @@ public class OrderUpdatedEvent {
     public String getOrderStatus() {
         return orderStatus;
     }
+
+    public String toString() {
+        return "orderId: " + orderId + " - orderStatus: " + orderStatus + "\n";
+    }
 }

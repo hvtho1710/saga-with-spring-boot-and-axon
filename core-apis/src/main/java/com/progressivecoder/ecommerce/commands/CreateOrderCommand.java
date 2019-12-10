@@ -24,4 +24,8 @@ public class CreateOrderCommand {
         this.currency = currency;
         this.orderStatus = orderStatus;
     }
+
+    public String toString() {
+        return "orderId: " + orderId + " - itemType: " + itemType + " - price:" + price + " - currency: " + currency + " - orderStatus: " + orderStatus + "\n";
+    }
 }

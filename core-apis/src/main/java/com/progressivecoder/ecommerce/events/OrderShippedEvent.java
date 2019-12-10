@@ -13,4 +13,8 @@ public class OrderShippedEvent {
         this.orderId = orderId;
         this.paymentId = paymentId;
     }
+
+    public String toString() {
+        return "shippingId: " + shippingId + " - orderId: " + orderId + " - paymentId:" + paymentId + "\n";
+    }
 }

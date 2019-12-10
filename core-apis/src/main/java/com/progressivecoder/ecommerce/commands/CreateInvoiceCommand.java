@@ -18,4 +18,8 @@ public class CreateInvoiceCommand{
         this.orderId = orderId;
         this.price = price;
     }
+
+    public String toString() {
+        return "paymentId: " + paymentId + " - orderId: " + orderId + " - price: " + price + "\n";
+    }
 }
