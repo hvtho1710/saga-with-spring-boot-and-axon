@@ -32,7 +32,7 @@ public class OrderManagementSaga {
         System.out.println("order id" + orderCreatedEvent.orderId);
 
         //send the commands
-        commandGateway.send(new CreateInvoiceCommand(paymentId, orderCreatedEvent.orderId));
+        commandGateway.send(new CreateInvoiceCommand(paymentId, orderCreatedEvent.orderId, orderCreatedEvent.price));
     }
 
     @SagaEventHandler(associationProperty = "paymentId")
@@ -47,6 +47,12 @@ public class OrderManagementSaga {
         //send the create shipping command
         commandGateway.send(new CreateShippingCommand(shippingId, invoiceCreatedEvent.orderId, invoiceCreatedEvent.paymentId));
     }
+
+    @SagaEventHandler(associationProperty = "paymentId")
+    public void handle(InvoiceRejectedEvent invoiceRejectedEvent){
+        commandGateway.send(new UpdateOrderStatusCommand(invoiceRejectedEvent.orderId, String.valueOf(OrderStatus.REJECTED)));
+    }
+
 
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderShippedEvent orderShippedEvent){

@@ -21,6 +21,6 @@ public class OrderCommandServiceImpl implements OrderCommandService {
     @Override
     public CompletableFuture<String> createOrder(OrderCreateDTO orderCreateDTO) {
         return commandGateway.send(new CreateOrderCommand(UUID.randomUUID().toString(), orderCreateDTO.getItemType(),
-                orderCreateDTO.getPrice(), orderCreateDTO.getCurrency(), String.valueOf(OrderStatus.CREATED)));
+                orderCreateDTO.getPrice(), orderCreateDTO.getCurrency(), String.valueOf(OrderStatus.PENDING)));
     }
 }

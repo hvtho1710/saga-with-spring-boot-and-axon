@@ -1,5 +1,5 @@
 package com.progressivecoder.ordermanagement.orderservice.aggregates;
 
 public enum OrderStatus {
-    CREATED, SHIPPED, REJECTED
+    PENDING, SHIPPED, REJECTED
 }
